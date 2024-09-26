@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Details App</title>
+    <style>
+      body {
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        margin: 20px;
+        background-color: aliceblue;
+      }
+
+      .title {
+        color: rgb(0, 66, 0);
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        margin-top: 20px;
+        background-color: white;
+        border-radius: 20px;
+      }
+
+      .movie-info {
+        width: 700px;
+        margin-right: 20px;
+        padding: 30px;
+      }
+
+      .movie-poster img {
+        max-width: 200px;
+        height: auto;
+        border-radius: 20px;
+      }
+      form {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        input {
+          padding: 10px;
+          border-radius: 10px;
+          border: 1px solid gainsboro;
+          width: 80%;
+        }
+
+        input:focus {
+          outline: 2px solid green;
+        }
+
+        button {
+          background-color: green;
+          color: white;
+          border: none;
+          border-radius: 10px;
+          padding: 12px 15px;
+          width: 20%;
+        }
+      }
+      .formWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+      }
+
+      .loader {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="formWrapper">
+      <h1 class="title">Movie Details</h1>
+      <form action="/movie" method="POST">
+        <input
+          type="text"
+          name="movieName"
+          placeholder="Enter movie name"
+          required
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="loader" id="loader">Loading...</div>
+
+    <% if (movie) { %>
+    <div class="container">
+      <div class="movie-info">
+        <h2 class="title"><%= movie.Title %> (<%= movie.Year %>)</h2>
+        <p><strong>Genre:</strong> <%= movie.Genre %></p>
+        <p><strong>Director:</strong> <%= movie.Director %></p>
+        <p><strong>Plot:</strong> <%= movie.Plot %></p>
+      </div>
+      <div class="movie-poster">
+        <img src="<%= movie.Poster %>" alt="<%= movie.Title %> Poster" />
+      </div>
+    </div>
+    <% } %> <% if (error) { %>
+    <p style="color: red"><%= error %></p>
+    <% } %>
+
+    <script>
+      function showLoader() {
+        document.getElementById("loader").style.display = "flex";
+      }
+    </script>
+  </body>
+</html>
